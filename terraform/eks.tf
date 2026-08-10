@@ -27,7 +27,7 @@ module "eks" {
   version = "~> 21.0"
 
   name               = "terraform-cluster"
-  kubernetes_version = "1.35"
+  kubernetes_version = "1.36"
 
   addons = {
     coredns = {}

@@ -54,7 +54,7 @@ module "bastion_host" {
 
   name = "bastion-host"
   ami = data.aws_ami.ubuntu.id
-  instance_type = "t3.micro"
+  instance_type = "t3a.small"
   key_name      = aws_key_pair.bastion_keypair.key_name
   monitoring    = true
 
