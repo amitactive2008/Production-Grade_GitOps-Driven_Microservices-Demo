@@ -10,6 +10,7 @@ repositories {
     mavenLocal()
 }
 
+
 description = 'Ad Service'
 group = "adservice"
 version = "0.1.0-SNAPSHOT"
