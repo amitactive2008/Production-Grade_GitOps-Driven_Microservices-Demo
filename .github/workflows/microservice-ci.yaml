@@ -41,11 +41,30 @@ jobs:
       # -------------------
       - name: Build Image
         run: |
+          SERVICE_DIR=./src/${{ inputs.service }}
+          DOCKERFILE_PATH="$SERVICE_DIR/Dockerfile"
+          BUILD_CONTEXT="$SERVICE_DIR"
+
+          if [ ! -f "$DOCKERFILE_PATH" ]; then
+            ALTERNATE_PATH="$SERVICE_DIR/src/Dockerfile"
+            if [ -f "$ALTERNATE_PATH" ]; then
+              DOCKERFILE_PATH="$ALTERNATE_PATH"
+              BUILD_CONTEXT="$SERVICE_DIR/src"
+            fi
+          fi
+
+          if [ ! -f "$DOCKERFILE_PATH" ]; then
+            echo "Dockerfile not found for service '${{ inputs.service }}'"
+            exit 1
+          fi
+
+          echo "Building $IMAGE_NAME using Dockerfile: $DOCKERFILE_PATH"
           docker build \
             --cache-from=type=gha \
             --cache-to=type=gha,mode=max \
-            -t $IMAGE_NAME \
-            ./src/${{ inputs.service }}
+            -f "$DOCKERFILE_PATH" \
+            -t "$IMAGE_NAME" \
+            "$BUILD_CONTEXT"
 
       # -------------------
       # Security Scan (before push)
