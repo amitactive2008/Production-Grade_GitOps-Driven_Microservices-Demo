@@ -307,6 +307,7 @@ cd Production-Grade_GitOps-Driven_Microservices-Demo/terraform/
 Clone te repo , `cd` to `terraform` directory. Do
 
 ```bash
+export AWS_PROFILE=your_profile_name
 terraform init
 Terraform plan 
 ```
