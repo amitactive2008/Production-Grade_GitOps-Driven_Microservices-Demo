@@ -699,7 +699,7 @@ aws iam create-policy --policy-name "AllowExternalDNSUpdates" --policy-document 
 export POLICY_ARN=$(aws iam list-policies \
  --query 'Policies[?PolicyName==`AllowExternalDNSUpdates`].Arn' --output text)
  
-export EKS_CLUSTER_NAME=test-terraform-cluster
+export EKS_CLUSTER_NAME=terraform-cluster
 ```
 
 ## **We will use pod identity agent for the external dns setup:**
