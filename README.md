@@ -623,13 +623,13 @@ spec:
   - name: http
     protocol: HTTP
     port: 80
-    hostname: "*.devopsdock.site"
+    hostname: "*.linuxworms.in"
     allowedRoutes:
       namespaces:
         from: All
   - name: https
     protocol: HTTPS
-    hostname: "*.devopsdock.site"
+    hostname: "*.linuxworms.in"
     port: 443
     allowedRoutes:
       namespaces:
@@ -854,7 +854,7 @@ configs:
     # -- List of hostnames for the HTTPRoute
     # @default -- `[]` (See [values.yaml])
     hostnames:
-      - argocd.devopsdock.site
+      - argocd.linuxworms.in
     # -- HTTPRoute rules configuration
     # @default -- `[]` (See [values.yaml])
     rules:
@@ -998,7 +998,7 @@ kubectl apply -f target-grp-config.yaml
 Access directly in the browser:
 
 ```bash
-https://argocd.devopsdock.site
+https://argocd.linuxworms.in
 ```
 
 To get the password and user:
@@ -1282,7 +1282,7 @@ In our case i kept in `microservices-extra-kube-manifests/` folder in the root d
       namespace: boutique-app
     spec:
       hostnames:
-        - "app.devopsdock.site"
+        - "app.linuxworms.in"
       parentRefs:
       - group: gateway.networking.k8s.io
         namespace: default
@@ -1641,7 +1641,7 @@ Head to ArgoCD UI , and in separte tab run the CI pipeline or trigger it via chn
 
 ![image.png](docs/images/image%205.png)
 
-Access the website `app.devopsdock.site`
+Access the website `app.linuxworms.in`
 
 It should be accessible.
 
@@ -2121,7 +2121,7 @@ metadata:
   namespace: monitoring
 spec:
   hostnames:
-    - "grafana.devopsdock.site"
+    - "grafana.linuxworms.in"
   parentRefs:
   - group: gateway.networking.k8s.io
     namespace: default
@@ -2204,7 +2204,7 @@ metadata:
   namespace: monitoring
 spec:
   hostnames:
-    - "prometheus.devopsdock.site"
+    - "prometheus.linuxworms.in"
   parentRefs:
   - group: gateway.networking.k8s.io
     namespace: default
@@ -2259,8 +2259,8 @@ prometheus-tg-config   kube-prometheus-stack-prometheus   44s
 kubectl get httproute -n monitoring
 
 NAME               HOSTNAMES                   AGE
-grafana-route      ["grafana.devopsdock.site"]      30m
-prometheus-route   ["prometheus.devopsdock.site"]   41s
+grafana-route      ["grafana.linuxworms.in"]      30m
+prometheus-route   ["prometheus.linuxworms.in"]   41s
 ```
 
 Head to the browser and access it:
@@ -2671,7 +2671,7 @@ metadata:
   namespace: logging
 spec:
   hostnames:
-    - "kibana.devopsdock.site"
+    - "kibana.linuxworms.in"
   parentRefs:
   - group: gateway.networking.k8s.io
     namespace: default
@@ -2742,7 +2742,7 @@ Verify:
 ```bash
 kubectl get httproute -n logging
 NAME           HOSTNAMES               AGE
-kibana-route   ["kibana.devopsdock.site"]   74s
+kibana-route   ["kibana.linuxworms.in"]   74s
 ```
 
 ```bash
