@@ -1,5 +1,5 @@
 # alb-gatewayclass.yaml
-apiVersion: gateway.networking.k8s.io/v1beta1
+apiVersion: gateway.k8s.aws/v1
 kind: GatewayClass
 metadata:
   name: aws-alb-gateway-class
