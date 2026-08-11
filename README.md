@@ -3256,35 +3256,83 @@ oci://ghcr.io/<OWNER>/charts/onlineboutique
 Example:
 
 ```
-oci://ghcr.io/laxmikanta/charts/onlineboutique
+oci://ghcr.io/amitactive2008/charts/onlineboutique
 ```
 
-Do :
+Do:
 
 ```bash
+cd helm-chart
 helm package .
 ```
 
-You will see the package will get created with `.tgz`  format
+You will see the package created with `.tgz` format.
 
 ```bash
-ubuntu@ip-10-0-101-164:~/Production-Grade_GitOps-Driven_Microservices-Demo/helm-chart$ ls
+ls
 Chart.yaml  README.md  onlineboutique-0.10.4.tgz  templates  values.yaml
 ```
 
 Push to the repository:
 
 ```bash
-helm push onlineboutique-0.10.4.tgz oci://ghcr.io/laxmikantagiri
+helm push onlineboutique-0.10.4.tgz oci://ghcr.io/amitactive2008/charts
 ```
 
-Now you can directly install the package using the below command
-
-(Make sure its public)
+Then remove the local package file:
 
 ```bash
-helm install boutique oci://ghcr.io/laxmikantagiri/onlineboutique --version 0.10.4
+rm -f onlineboutique-0.10.4.tgz
 ```
+
+Now you can directly install the package using:
+
+```bash
+helm install boutique oci://ghcr.io/amitactive2008/charts/onlineboutique --version 0.10.4
+```
+
+## Configure Argo CD to use GHCR via secret
+
+Create a Kubernetes secret in the `argocd` namespace:
+
+```bash
+kubectl -n argocd create secret generic ghcr-secret \
+  --from-literal=username=YOUR_GHCR_USERNAME \
+  --from-literal=password=YOUR_GHCR_TOKEN
+```
+
+Then configure `argocd/argocd-values-9.4.0.yaml` with a repository credential template:
+
+```yaml
+configs:
+  cm:
+    create: true
+    kustomize.buildOptions: "--enable-helm"
+  credentialTemplates:
+    ghcr-creds:
+      url: https://ghcr.io
+      username: $ghcr-secret:username
+      password: $ghcr-secret:password
+  repositories:
+    ghcr-amitactive2008:
+      url: https://ghcr.io/amitactive2008/charts
+      type: helm
+      credentialTemplate: ghcr-creds
+```
+
+Update `kustomization.yaml` to use the GHCR OCI chart repo path:
+
+```yaml
+helmCharts:
+  - name: onlineboutique
+    repo: oci://ghcr.io/amitactive2008/onlineboutique
+    version: 0.10.4
+    releaseName: boutique-app
+    namespace: boutique-app
+    valuesFile: helm-chart/values.yaml
+```
+
+Then reapply Argo CD and sync the application. This ensures Argo CD uses the secret-backed credential template for GHCR.
 </details>
 
 ---
