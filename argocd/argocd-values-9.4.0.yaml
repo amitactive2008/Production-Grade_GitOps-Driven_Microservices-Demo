@@ -2637,11 +2637,17 @@ server:
       - argocd.linuxworms.in
     # -- HTTPRoute rules configuration
     # @default -- `[]` (See [values.yaml])
-    rules:
-      - matches:
-          - path:
-              type: PathPrefix
-              value: /
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      filters:
+        - type: RequestRedirect
+          requestRedirect:
+            scheme: https
+            port: 443
+            statusCode: HTTP_301
         # filters: []
         #   - type: RequestHeaderModifier
         #     requestHeaderModifier:
