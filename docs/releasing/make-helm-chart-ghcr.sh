@@ -44,7 +44,7 @@ print(m.group(1) if m else 'onlineboutique')
 PY
 )
 CHART_PACKAGE="${CHART_NAME}-${TAG:1}.tgz"
-HELM_REPO="oci://ghcr.io/${GHCR_OWNER}/charts"
+HELM_REPO="oci://ghcr.io/${GHCR_OWNER}/charts/${CHART_NAME}"
 
 log "Packaging Helm chart ${CHART_NAME} with tag ${TAG}"
 helm package .
