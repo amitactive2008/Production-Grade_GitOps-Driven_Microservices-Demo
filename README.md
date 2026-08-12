@@ -427,12 +427,19 @@ docker pull ghcr.io/amitactive2008/microservices-demo/<service>:v0.10.4
 5. Verify Helm chart in the registry:
 
 ```bash
-helm chart pull ghcr.io/amitactive2008/onlineboutique:0.10.4
+helm chart pull oci://ghcr.io/amitactive2008/onlineboutique --version 0.10.4
+```
+
+6. If you deploy ArgoCD with OCI Helm charts, use the sample ArgoCD secret:
+
+```bash
+kubectl apply -f argocd-ghcr-secret.yaml
 ```
 
 Notes:
 - The `push-image.sh` script writes a non-interactive Docker auth entry to `~/.docker/config.json` using the exported token.
 - Replace `<service>` with the service name (e.g. `frontend`, `adservice`).
+- Replace `<GHCR_PERSONAL_ACCESS_TOKEN>` in `argocd-ghcr-secret.yaml` before applying it.
 - Revoke and recreate the PAT immediately if you accidentally paste it in public chat.
 
 - HELM
