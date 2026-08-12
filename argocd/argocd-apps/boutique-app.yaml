@@ -7,8 +7,8 @@ spec:
   project: default
 
   source:
-    repoURL: https://github.com/amitactive2008/Production-Grade_GitOps-Driven_Microservices-Demo.git
-    targetRevision: main
+    repoURL: https://github.com/laxmikantagiri/Production-Grade_GitOps-Driven_Microservices-Demo.git
+    targetRevision: HEAD
     path: .
 
   destination:
