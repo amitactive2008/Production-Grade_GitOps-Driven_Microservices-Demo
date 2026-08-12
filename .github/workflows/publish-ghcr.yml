@@ -1,0 +1,82 @@
+name: Publish GHCR images
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - name: paymentservice
+            path: src/paymentservice
+            dockerfile: src/paymentservice/Dockerfile
+          - name: recommendationservice
+            path: src/recommendationservice
+            dockerfile: src/recommendationservice/Dockerfile
+          - name: checkoutservice
+            path: src/checkoutservice
+            dockerfile: src/checkoutservice/Dockerfile
+          - name: productcatalogservice
+            path: src/productcatalogservice
+            dockerfile: src/productcatalogservice/Dockerfile
+          - name: cartservice
+            path: src/cartservice
+            dockerfile: src/cartservice/src/Dockerfile
+          - name: shoppingassistantservice
+            path: src/shoppingassistantservice
+            dockerfile: src/shoppingassistantservice/Dockerfile
+          - name: adservice
+            path: src/adservice
+            dockerfile: src/adservice/Dockerfile
+          - name: loadgenerator
+            path: src/loadgenerator
+            dockerfile: src/loadgenerator/Dockerfile
+          - name: shippingservice
+            path: src/shippingservice
+            dockerfile: src/shippingservice/Dockerfile
+          - name: emailservice
+            path: src/emailservice
+            dockerfile: src/emailservice/Dockerfile
+          - name: frontend
+            path: src/frontend
+            dockerfile: src/frontend/Dockerfile
+          - name: currencyservice
+            path: src/currencyservice
+            dockerfile: src/currencyservice/Dockerfile
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Login to GHCR
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push image
+        uses: docker/build-push-action@v4
+        with:
+          context: ${{ matrix.path }}
+          file: ${{ matrix.dockerfile }}
+          platforms: linux/amd64
+          push: true
+          tags: |
+            ghcr.io/amitactive2008/${{ matrix.name }}:0.10.4
+            ghcr.io/amitactive2008/${{ matrix.name }}:latest
+
+      - name: Image digest
+        run: echo "Pushed ${{ matrix.name }}:0.10.4"
