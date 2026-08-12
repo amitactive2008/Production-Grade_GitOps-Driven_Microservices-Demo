@@ -398,6 +398,42 @@ Now install the below tools  in the Bastion Host:
 
 - AWS CLI
 - kubectl client
+
+## Publish Images & Helm Chart to GHCR (first-time)
+
+Follow these steps to build, tag and push service images and the Helm chart to GitHub Container Registry (GHCR). Do NOT paste your token in chat — export it in your terminal.
+
+1. Create a GitHub Personal Access Token (PAT) with `read:packages` and `write:packages` scopes.
+2. Export the token in your shell (example):
+
+```bash
+export GITHUB_TOKEN=ghp_your_new_token_here
+```
+
+3. Use the provided script to build and push images and publish the OCI Helm chart (script: `push-image.sh`):
+
+```bash
+chmod +x push-image.sh
+./push-image.sh
+```
+
+4. Verify an image was pushed:
+
+```bash
+docker pull ghcr.io/amitactive2008/microservices-demo/<service>:v0.10.4
+```
+
+5. Verify Helm chart in the registry:
+
+```bash
+helm chart pull ghcr.io/amitactive2008/onlineboutique:0.10.4
+```
+
+Notes:
+- The `push-image.sh` script writes a non-interactive Docker auth entry to `~/.docker/config.json` using the exported token.
+- Replace `<service>` with the service name (e.g. `frontend`, `adservice`).
+- Revoke and recreate the PAT immediately if you accidentally paste it in public chat.
+
 - HELM
 - eksctl
 
