@@ -414,7 +414,8 @@ export GITHUB_TOKEN=ghp_your_new_token_here
 
 ```bash
 chmod +x push-image.sh
-./push-image.sh
+./push-image.sh         # builds & pushes all services
+./push-image.sh frontend # push only `frontend`
 ```
 
 4. Verify an image was pushed:
