@@ -28,4 +28,4 @@ release/wi-kubernetes-manifests.yaml
 vendor/
 *.pem
 .terraform
-argocd-ghcr-secret.yaml
+argocd/argocd-apps/argocd-ghcr-secret.yaml
