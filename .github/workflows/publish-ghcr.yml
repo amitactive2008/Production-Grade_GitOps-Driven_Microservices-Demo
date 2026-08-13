@@ -28,7 +28,7 @@ jobs:
             path: src/productcatalogservice
             dockerfile: src/productcatalogservice/Dockerfile
           - name: cartservice
-            path: src/cartservice
+            path: src/cartservice/src
             dockerfile: src/cartservice/src/Dockerfile
           - name: shoppingassistantservice
             path: src/shoppingassistantservice
