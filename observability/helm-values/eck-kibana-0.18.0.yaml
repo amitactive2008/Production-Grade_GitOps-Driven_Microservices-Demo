@@ -77,7 +77,8 @@ elasticsearchRef:
 # The Kibana configuration (kibana.yml)
 # ref: https://www.elastic.co/guide/en/kibana/current/settings.html
 #
-config: null
+config:
+  server.publicBaseUrl: "https://kibana.linuxworms.in"
 
 # The HTTP layer configuration for Kibana.
 #
