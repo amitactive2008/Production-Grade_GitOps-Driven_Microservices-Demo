@@ -15,14 +15,14 @@
 # https://mcr.microsoft.com/product/dotnet/sdk
 FROM mcr.microsoft.com/dotnet/sdk:10.0.100-noble@sha256:c7445f141c04f1a6b454181bd098dcfa606c61ba0bd213d0a702489e5bd4cd71 AS builder
 ARG TARGETARCH
+ARG TARGETRID=linux-x64
 WORKDIR /app
 COPY cartservice.csproj .
-RUN dotnet restore cartservice.csproj \
-    -a $TARGETARCH
+RUN dotnet restore cartservice.csproj
 COPY . .
 RUN dotnet publish cartservice.csproj \
     -p:PublishSingleFile=true \
-    -a $TARGETARCH \
+    -r $TARGETRID \
     --self-contained true \
     -p:PublishTrimmed=true \
     -p:TrimMode=full \
