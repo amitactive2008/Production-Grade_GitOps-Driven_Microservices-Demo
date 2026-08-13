@@ -2430,7 +2430,10 @@ Docs: [https://artifacthub.io/packages/helm/elastic/eck-elasticsearch](https://a
 Run:
 
 ```bash
+helm repo add elastic https://helm.elastic.co
+helm install eck-operator elastic/eck-operator -n elastic-system --create-namespace
 helm install eck-elasticsearch elastic/eck-elasticsearch --version 0.18.0 -n logging
+helm install eck-elasticsearch elastic/eck-elasticsearch --version 0.20.0 -n logging
 ```
 
 Make sure its running:
