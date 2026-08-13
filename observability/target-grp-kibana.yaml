@@ -5,14 +5,10 @@ metadata:
   namespace: logging
 spec:
   targetReference:
-    name: eck-kibana-kb-http
-    kind: Service
-    group: ""
+    name: eck-kibana-kb-http 
   defaultConfiguration:
     targetType: ip
     protocol: HTTPS
     healthCheckConfig:
       healthCheckProtocol: HTTPS
       healthCheckPath: /api/status
-      matcher:
-        httpCode: "200-503"
