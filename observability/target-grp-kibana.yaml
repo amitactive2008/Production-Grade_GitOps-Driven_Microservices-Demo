@@ -5,7 +5,9 @@ metadata:
   namespace: logging
 spec:
   targetReference:
-    name: eck-kibana-kb-http 
+    name: eck-kibana-kb-http
+    kind: Service
+    group: ""
   defaultConfiguration:
     targetType: ip
     protocol: HTTPS
